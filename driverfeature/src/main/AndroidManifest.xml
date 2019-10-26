@@ -9,7 +9,15 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application>
-        <activity android:name=".BookingActivity"></activity>
+        <activity android:name=".DetailParkingActivity"></activity>
+        <activity android:name=".BookingSecondActivity">
+            android:label = "Booking Second Activity"
+            android:parentActivityName=".BookingActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.driverfeature.BookingActivity" />
+        </activity>
+        <activity android:name=".BookingActivity" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
