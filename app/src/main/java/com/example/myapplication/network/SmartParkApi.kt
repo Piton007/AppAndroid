@@ -7,6 +7,7 @@ import com.androidnetworking.error.ANError
 import com.androidnetworking.interfaces.JSONObjectRequestListener
 import com.androidnetworking.interfaces.ParsedRequestListener
 import com.example.myapplication.model.Driver
+import com.example.myapplication.model.Owner
 import org.json.JSONObject
 import java.lang.reflect.InvocationHandler
 
@@ -30,6 +31,15 @@ class SmartParkApi {
                        errorHandler: (ANError?) -> Unit) {
             val json: JSONObject = driver.convertToJson()
             post(json, driversUrl,responseHandler, errorHandler)
+        }
+        fun getOwners(responseHandler: (ArrayList<Owner>?) -> Unit,
+                      errorHandler: (ANError) -> Unit) {
+            get(ownersUrl,responseHandler,errorHandler)
+        }
+        fun postOwner(owner: Owner, responseHandler: (JSONObject?) -> Unit,
+                      errorHandler: (ANError?) -> Unit) {
+            val json: JSONObject = owner.convertToJson()
+            post(json, ownersUrl,responseHandler,errorHandler )
         }
 
         private inline fun <reified  T> get(url: String, crossinline responseHandler: (ArrayList<T>?) -> Unit,
