@@ -67,6 +67,29 @@ class SmartParkApi {
                 errorHandler
             )
         }
+        private inline fun login(url: String, crossinline responseHandler: (Driver?) -> Unit,
+                                 crossinline  errorHandler: (ANError) -> Unit){
+            AndroidNetworking.get(url)
+                .addHeaders("Autorizathion","Bearer")
+                .setTag(TAG)
+                .setPriority(Priority.HIGH)
+                .build()
+                .getAsObject(Driver::class.java, object : ParsedRequestListener<Driver>{
+                    override fun onResponse(response: Driver?){
+                        response?.apply {
+                            responseHandler(response)
+                        }
+                    }
+                    override fun onError(anError: ANError?) {
+                        anError?.apply {
+                            Log.d(TAG, "Error $errorCode: $errorBody $localizedMessage")
+                            errorHandler(this)
+                        }
+                    }
+
+                })
+        }
+
 
         private inline fun <reified  T> get(url: String, crossinline responseHandler: (ArrayList<T>?) -> Unit,
                                             crossinline errorHandler: (ANError) -> Unit)

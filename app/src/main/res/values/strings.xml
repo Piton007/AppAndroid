@@ -4,4 +4,13 @@
     <string name="title_dashboard">Near Me</string>
     <string name="title_notifications">Settings</string>
     <string name="API_KEY">AIzaSyC0tOMfq95VqOV8505O4DbeEzH9ztGOD64</string>
+    <string name="todo">todo</string>
+    <string name="password">password</string>
+    <string name="email">email</string>
+    <string name="login">login</string>
+    <string name="suggestionaccount">suggestionaccount</string>
+    <string name="createaccount">createaccount</string>
+    <string name="continue_without_registration">continue_without_registration</string>
+    <string name="full_name">full_name</string>
+    <string name="button">button</string>
 </resources>
