@@ -1,4 +1,4 @@
-package com.example.myapplication.model
+package com.example.networking.model
 
 import org.json.JSONObject
 import java.io.Serializable

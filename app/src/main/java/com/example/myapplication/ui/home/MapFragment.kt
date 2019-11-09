@@ -19,7 +19,7 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 
-class MapFragment : Fragment(), OnMapReadyCallback, LocationListener {
+class MapFragment : Fragment() {
     private  var googleMap: GoogleMap?=null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,43 +27,21 @@ class MapFragment : Fragment(), OnMapReadyCallback, LocationListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val mapFragment=childFragmentManager.findFragmentById(com.example.driverfeature.R.id.map) as SupportMapFragment
-        mapFragment.getMapAsync(this)
+
+
     }
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(com.example.driverfeature.R.layout.fragment_google_map, container, false)
-    }
-
-    override fun onMapReady(p0: GoogleMap?) {
-
-        this.googleMap=p0
-        val point= LatLng(13.03,77.60)
-        googleMap!!.addMarker(MarkerOptions().position(point).title("Prueba").snippet("1"))
-        googleMap!!.animateCamera(CameraUpdateFactory.newLatLng(point))
-        googleMap!!.setOnMarkerClickListener { Toast.makeText(this.activity,"Nombre"+it.title+" Location: "+it.position,
-            Toast.LENGTH_LONG).show(); true ;}
+        return inflater.inflate(R.layout.fragment_home, container, false)
     }
 
 
 
-    override fun onLocationChanged(location: Location?) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
 
-    override fun onStatusChanged(provider: String?, status: Int, extras: Bundle?) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
 
-    override fun onProviderEnabled(provider: String?) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
 
-    override fun onProviderDisabled(provider: String?) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-    // TODO: Rename and change types of parameters
+
 }

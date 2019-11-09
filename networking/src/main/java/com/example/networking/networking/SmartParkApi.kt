@@ -1,4 +1,4 @@
-package com.example.myapplication.network
+package com.example.networking.networking
 
 import android.util.Log
 import com.androidnetworking.AndroidNetworking
@@ -6,10 +6,10 @@ import com.androidnetworking.common.Priority
 import com.androidnetworking.error.ANError
 import com.androidnetworking.interfaces.JSONObjectRequestListener
 import com.androidnetworking.interfaces.ParsedRequestListener
-import com.example.myapplication.model.Driver
-import com.example.myapplication.model.Owner
+import com.example.networking.model.Driver
+import com.example.networking.model.Owner
+import com.example.networking.model.Parking
 import org.json.JSONObject
-import java.lang.reflect.InvocationHandler
 
 class SmartParkApi {
     companion object {
@@ -25,21 +25,47 @@ class SmartParkApi {
 
         fun getDrivers(responseHandler: (ArrayList<Driver>?) -> Unit,
                        errorHandler: (ANError) -> Unit) {
-            get(driversUrl,responseHandler,errorHandler)
+            get(
+                driversUrl,
+                responseHandler,
+                errorHandler
+            )
         }
         fun postDriver(driver: Driver, responseHandler: (JSONObject?) -> Unit,
                        errorHandler: (ANError?) -> Unit) {
             val json: JSONObject = driver.convertToJson()
-            post(json, driversUrl,responseHandler, errorHandler)
+            post(
+                json,
+                driversUrl,
+                responseHandler,
+                errorHandler
+            )
         }
         fun getOwners(responseHandler: (ArrayList<Owner>?) -> Unit,
                       errorHandler: (ANError) -> Unit) {
-            get(ownersUrl,responseHandler,errorHandler)
+            get(
+                ownersUrl,
+                responseHandler,
+                errorHandler
+            )
         }
         fun postOwner(owner: Owner, responseHandler: (JSONObject?) -> Unit,
                       errorHandler: (ANError?) -> Unit) {
             val json: JSONObject = owner.convertToJson()
-            post(json, ownersUrl,responseHandler,errorHandler )
+            post(
+                json,
+                ownersUrl,
+                responseHandler,
+                errorHandler
+            )
+        }
+        fun getParkings(responseHandler: (ArrayList<Parking>?) -> Unit,
+                        errorHandler: (ANError) -> Unit) {
+            get(
+                parkingsUrl,
+                responseHandler,
+                errorHandler
+            )
         }
 
         private inline fun <reified  T> get(url: String, crossinline responseHandler: (ArrayList<T>?) -> Unit,

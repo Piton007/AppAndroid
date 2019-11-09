@@ -19,8 +19,15 @@
              sign the APK for publishing.
              You can define the keys for the debug and release targets in src/debug/ and src/release/.
         -->
-
-
+        <activity android:name=".DetailParkingActivity"></activity>
+        <activity android:name=".BookingSecondActivity">
+            android:label = "Booking Second Activity"
+            android:parentActivityName=".BookingActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.driverfeature.BookingActivity" />
+        </activity>
+        <activity android:name=".BookingActivity" />
         <activity
             android:name=".DriverMapActivity"
             android:label="@string/title_activity_driver_map"></activity>
