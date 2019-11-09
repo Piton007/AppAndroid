@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.Window
 import android.widget.Button
 import android.widget.TextView
 import com.example.myapplication.MainActivity
@@ -19,6 +20,8 @@ class LoginActivity : AppCompatActivity() {
     private var passwordvalid: Boolean = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
+        getActionBar()?.hide();
         setContentView(R.layout.activity_login)
         val register=findViewById<TextView>(R.id.txtRegister)
         register.setOnClickListener{

@@ -26,7 +26,6 @@ class MainActivity : AppCompatActivity() {
 
     private fun navigateTo(item: MenuItem): Boolean {
         item.isChecked = true
-
         return supportFragmentManager
             .beginTransaction()
             .replace(R.id.fragment_container, getFragmentFor(item))
@@ -46,33 +45,35 @@ class MainActivity : AppCompatActivity() {
     private lateinit var bottomSheetDialogFragment: BottomDialogParkings
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        this.supportActionBar?.hide()
         setContentView(R.layout.activity_main)
+
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
         navView.setOnNavigationItemSelectedListener{
             navigateTo(it)
         }
         navigateTo(navView.menu.findItem(R.id.navigation_home))
-        //val navController = findNavController(R.id.nav_host_fragment)
+       /* val navController = findNavController(R.id.nav_host_fragment)
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
-       /* val appBarConfiguration = AppBarConfiguration(
+        val appBarConfiguration = AppBarConfiguration(
             setOf(
                 R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications
             )
-        )*/
-       // drawerLayout=findViewById(R.id.drawerLayoutCore)
+        )
+       drawerLayout=findViewById(R.id.drawerLayoutCore)
 
-        //setupActionBarWithNavController(navController, appBarConfiguration)
-        //navView.setupWithNavController(navController)
-        //NavigationUI.setupActionBarWithNavController(this,navController,drawerLayout)
-
+        setupActionBarWithNavController(navController, appBarConfiguration)
+        navView.setupWithNavController(navController)
+        NavigationUI.setupActionBarWithNavController(this,navController,drawerLayout)
+*/
     }
 
-   /* override fun onSupportNavigateUp(): Boolean {
+  /*  override fun onSupportNavigateUp(): Boolean {
         val navController=this.findNavController(R.id.nav_host_fragment)
         return NavigationUI.navigateUp(navController,drawerLayout)
-    }*/
-
+    }
+*/
 
 
 }

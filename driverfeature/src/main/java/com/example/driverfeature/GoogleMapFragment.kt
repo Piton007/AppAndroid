@@ -22,19 +22,21 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.gms.location.LocationServices;
 
 
 class GoogleMapFragment : Fragment(), OnMapReadyCallback
     {
 
     private lateinit var googleMapViewModel: GoogleMapModel
-
+    
 
 
 
     private var googleMap: GoogleMap? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -42,6 +44,7 @@ class GoogleMapFragment : Fragment(), OnMapReadyCallback
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
         val view = layoutInflater.inflate(R.layout.bottom_sheet_parkings_layout, null)
         mapFragment.getMapAsync(this)
+        LocationServices.getFusedLocationProviderClient(requireActivity())
 
     }
 
@@ -57,14 +60,24 @@ class GoogleMapFragment : Fragment(), OnMapReadyCallback
     }
 
     override fun onMapReady(p0: GoogleMap?) {
-        val markers = googleMapViewModel.getlocations();
+
         this.googleMap = p0
         Log.d("GoogleMapFragment", "Inicializando Mapa")
         addMarkersToMap()
         setUpPermissions()
-        googleMap!!.animateCamera(CameraUpdateFactory.newLatLng(markers.get(0).location))
+        val markers = googleMapViewModel.locations();
+        val latlong=markers[0].location.split(";")
+
         googleMap!!.setOnMarkerClickListener {
+
+            Log.d("GoogleMapFragment","Tamaño de markers"+markers.size.toString()+" Index: "+it.snippet)
             val bottomSheet = BottomDialogParkings()
+            val parking=markers.get(it.snippet.toInt()-1)
+            val args= Bundle()
+            args.putString("name",parking.name)
+            args.putString("description",parking.description)
+            args.putString("type",parking.park_Type)
+            bottomSheet.arguments=args
             bottomSheet.show(childFragmentManager, it.title)
             true
 
@@ -84,19 +97,20 @@ class GoogleMapFragment : Fragment(), OnMapReadyCallback
     fun addMarkersToMap() {
         SmartParkApi.getParkings({
             it as ArrayList<Parking>
-            for (parking in it) {
+            for ((index,parking) in it.withIndex()) {
+                googleMapViewModel.addParking(parking)
                 val info = parking.location.split(";").toTypedArray()
                 val point = LatLng(info[0].toDouble(), info[1].toDouble())
                 when (parking.park_Type) {
                     GlobalConstants.COCHERA -> googleMap!!.addMarker(
                         MarkerOptions().position(point).title(parking.name).snippet(
                             parking.id.toString()
-                        ).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
+                        ).icon(BitmapDescriptorFactory.fromResource(R.drawable.cochera_icon))
                     )
                     GlobalConstants.PARKING -> googleMap!!.addMarker(
                         MarkerOptions().position(point).title(parking.name).snippet(
-                            parking.id.toString()
-                        ).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE))
+                            index.toString()
+                        ).icon(BitmapDescriptorFactory.fromResource(R.drawable.parking_icon))
                     )
                     else -> { // Note the block
                         Log.e("GoogleMapModel", "No existe el tipo de estacionameinto")

@@ -21,6 +21,7 @@ import com.google.android.gms.maps.model.MarkerOptions
 
 class MapFragment : Fragment() {
     private  var googleMap: GoogleMap?=null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }

@@ -9,7 +9,7 @@
         android:id="@+id/imageView"
         android:layout_width="369dp"
         android:layout_height="249dp"
-        android:src="@drawable/ejemplo"
+        android:src="@drawable/cochera"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
