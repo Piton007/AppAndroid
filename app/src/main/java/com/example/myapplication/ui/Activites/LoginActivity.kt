@@ -25,7 +25,7 @@ class LoginActivity : AppCompatActivity() {
         setContentView(R.layout.activity_login)
         val register=findViewById<TextView>(R.id.txtRegister)
         register.setOnClickListener{
-            intent = Intent(this,MainActivity::class.java)
+            intent = Intent(this,SignUpActivity::class.java)
 
             intent.putExtra("name","helo")
             intent.putExtra("password","hello")
