@@ -7,9 +7,15 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.example.driverfeature.GoogleMapFragment"
+        android:name="com.example.myapplication.ui.Fragments.GoogleMapFragment"
         android:label="Map"
         tools:layout="@layout/fragment_home" />
+
+
+    <fragment
+        android:id="@+id/navigation_parking_dialog"
+        android:name="com.example.myapplication.ui.Fragments.BottomDialogParkings"
+        tools:layout="@layout/item_bookings" />
 
     <fragment
         android:id="@+id/navigation_dashboard"
@@ -26,8 +32,15 @@
     <fragment
         android:id="@+id/navigation_bookings"
         android:name="com.example.myapplication.ui.Fragments.BookingsFragment"
-        android:label="@string/title_notifications"
+        android:label="Bookings"
         tools:layout="@layout/fragment_notifications" />
+
+    <fragment
+        android:id="@+id/navigation_post_bookings"
+        android:name="com.example.myapplication.ui.Fragments.PostBooking"
+
+       />
+
 
     <fragment
         android:id="@+id/navigation_car"

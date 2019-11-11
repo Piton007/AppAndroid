@@ -1,4 +1,4 @@
-package com.example.driverfeature
+package com.example.myapplication.ui.Fragments
 
 class GlobalConstants {
     companion object {

@@ -34,7 +34,7 @@ class BookingsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        bookingsAdapter= BookingsAdapter(bookings)
+        /*bookingsAdapter= BookingsAdapter(bookings)
         booking_list.apply {
         adapter=bookingsAdapter
         layoutManager=LinearLayoutManager(this.context)
@@ -45,6 +45,6 @@ class BookingsFragment : Fragment() {
         }, {
             Log.e("BookingFragment", "Error get parkings ")
         })
-
+*/
     }
 }

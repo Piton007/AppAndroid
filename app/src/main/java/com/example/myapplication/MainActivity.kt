@@ -1,34 +1,16 @@
 package com.example.myapplication
 
-import android.content.Context
-import android.graphics.Color
 import android.os.Bundle
-import android.util.AttributeSet
 import android.util.Log
-import android.view.MenuItem
 import android.view.View
-import android.view.Window
-import android.widget.Switch
-import androidx.appcompat.app.ActionBar
-import androidx.appcompat.app.ActionBarDrawerToggle
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
-import androidx.core.view.get
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
-import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.navigation.ui.*
-import com.example.driverfeature.BottomDialogParkings
-import com.example.driverfeature.GoogleMapFragment
-import com.example.myapplication.ui.Fragments.PerfilFragment
-import com.example.myapplication.ui.dashboard.DashboardFragment
-import com.example.myapplication.ui.notifications.NotificationsFragment
-import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.navigation.NavigationView
 
 class MainActivity : AppCompatActivity() {
@@ -86,6 +68,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.navigation_favorites->navController.navigate(R.id.navigation_favorites)
                 R.id.navigation_recents->navController.navigate(R.id.navigation_recents)
             }
+            it.setCheckable(false)
             drawerLayout.closeDrawer(GravityCompat.START)
              true
 

@@ -1,4 +1,4 @@
-package com.example.driverfeature
+package com.example.myapplication.ui.Fragments
 
 import android.content.pm.PackageManager
 import android.os.Bundle
@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.app.ActivityCompat
 import androidx.lifecycle.ViewModelProviders
+import com.example.driverfeature.R
 import com.example.networking.model.Parking
 import com.example.networking.networking.SmartParkApi
 import com.google.android.gms.maps.GoogleMap
@@ -65,10 +66,9 @@ class GoogleMapFragment : Fragment(), OnMapReadyCallback
 
         googleMap!!.setOnMarkerClickListener {
             val markers = googleMapViewModel.locations();
-            val latlong=markers[0].location.split(";")
             Log.d("GoogleMapFragment","Tamaño de markers"+markers.size.toString()+" Index: "+it.snippet)
-            val bottomSheet = BottomDialogParkings()
-            val parking=markers.get(it.snippet.toInt()-1)
+            val bottomSheet = com.example.myapplication.ui.Fragments.BottomDialogParkings()
+            val parking=markers.get(it.snippet.toInt())
             val args= Bundle()
             args.putString("name",parking.name)
             args.putString("description",parking.description)
@@ -79,14 +79,13 @@ class GoogleMapFragment : Fragment(), OnMapReadyCallback
 
         }
         googleMap!!.uiSettings.isZoomControlsEnabled = true
-
-
     }
 
     fun setUpPermissions(){
         if (ActivityCompat.checkSelfPermission(requireContext(),android.Manifest.permission.ACCESS_FINE_LOCATION)!= PackageManager.PERMISSION_GRANTED){
             ActivityCompat.requestPermissions(requireActivity(), arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION),
-                GlobalConstants.LOCATION_PERMISSION_CODE)
+                GlobalConstants.LOCATION_PERMISSION_CODE
+            )
         }
     }
 
@@ -97,10 +96,10 @@ class GoogleMapFragment : Fragment(), OnMapReadyCallback
                 googleMapViewModel.addParking(parking)
                 val info = parking.location.split(";").toTypedArray()
                 val point = LatLng(info[0].toDouble(), info[1].toDouble())
-                when (parking.park_Type) {
+                when (parking.park_Type){
                     GlobalConstants.COCHERA -> googleMap!!.addMarker(
                         MarkerOptions().position(point).title(parking.name).snippet(
-                            parking.id.toString()
+                            index.toString()
                         ).icon(BitmapDescriptorFactory.fromResource(R.drawable.cochera_icon))
                     )
                     GlobalConstants.PARKING -> googleMap!!.addMarker(

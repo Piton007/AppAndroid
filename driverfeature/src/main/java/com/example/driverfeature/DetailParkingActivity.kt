@@ -7,6 +7,6 @@ class DetailParkingActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_detail_parking)
+       // setContentView(R.layout.activity_detail_parking)
     }
 }

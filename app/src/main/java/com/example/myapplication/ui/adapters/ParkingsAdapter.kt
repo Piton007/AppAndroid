@@ -1,6 +1,5 @@
 package com.example.myapplication.ui.adapters
 
-import android.provider.Settings
 import android.view.LayoutInflater
 import androidx.recyclerview.widget.RecyclerView
 import android.view.View
@@ -8,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import com.example.driverfeature.GlobalConstants
+import com.example.myapplication.ui.Fragments.GlobalConstants
 import com.example.myapplication.R
 import com.example.networking.model.Parking
 
