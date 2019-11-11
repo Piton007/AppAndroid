@@ -13,4 +13,8 @@
     <string name="continue_without_registration">continue_without_registration</string>
     <string name="full_name">full_name</string>
     <string name="button">button</string>
+    <string name="OpenDrawer">open</string>
+    <string name="CloseDrawer">open</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

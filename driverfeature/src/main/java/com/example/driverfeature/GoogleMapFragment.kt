@@ -1,9 +1,6 @@
 package com.example.driverfeature
 
-import android.content.Context
 import android.content.pm.PackageManager
-import android.location.Location
-import android.location.LocationListener
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -14,13 +11,11 @@ import androidx.core.app.ActivityCompat
 import androidx.lifecycle.ViewModelProviders
 import com.example.networking.model.Parking
 import com.example.networking.networking.SmartParkApi
-import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.gms.location.LocationServices;
 
@@ -42,7 +37,7 @@ class GoogleMapFragment : Fragment(), OnMapReadyCallback
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
-        val view = layoutInflater.inflate(R.layout.bottom_sheet_parkings_layout, null)
+        val view = layoutInflater.inflate(R.layout.item_bookings, null)
         mapFragment.getMapAsync(this)
         LocationServices.getFusedLocationProviderClient(requireActivity())
 
@@ -65,11 +60,12 @@ class GoogleMapFragment : Fragment(), OnMapReadyCallback
         Log.d("GoogleMapFragment", "Inicializando Mapa")
         addMarkersToMap()
         setUpPermissions()
-        val markers = googleMapViewModel.locations();
-        val latlong=markers[0].location.split(";")
+
+
 
         googleMap!!.setOnMarkerClickListener {
-
+            val markers = googleMapViewModel.locations();
+            val latlong=markers[0].location.split(";")
             Log.d("GoogleMapFragment","Tamaño de markers"+markers.size.toString()+" Index: "+it.snippet)
             val bottomSheet = BottomDialogParkings()
             val parking=markers.get(it.snippet.toInt()-1)

@@ -6,6 +6,7 @@ import com.androidnetworking.common.Priority
 import com.androidnetworking.error.ANError
 import com.androidnetworking.interfaces.JSONObjectRequestListener
 import com.androidnetworking.interfaces.ParsedRequestListener
+import com.example.networking.model.Booking
 import com.example.networking.model.Driver
 import com.example.networking.model.Owner
 import com.example.networking.model.Parking
@@ -31,6 +32,12 @@ class SmartParkApi {
                 errorHandler
             )
         }
+
+        fun getBookings(responseHandler: (ArrayList<Booking>?) -> Unit,
+                        errorHandler: (ANError) -> Unit){
+            get(bookingsUrl,responseHandler,errorHandler)
+        }
+
         fun postDriver(driver: Driver, responseHandler: (JSONObject?) -> Unit,
                        errorHandler: (ANError?) -> Unit) {
             val json: JSONObject = driver.convertToJson()

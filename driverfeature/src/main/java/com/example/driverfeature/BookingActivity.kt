@@ -8,7 +8,7 @@ import android.content.Intent
 
 
 class BookingActivity : AppCompatActivity() {
-    private val LOG_TAG = BookingActivity::class.java!!.getSimpleName()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -16,7 +16,7 @@ class BookingActivity : AppCompatActivity() {
     }
 
     fun reserveSecondActivity() {
-        Log.d(LOG_TAG, "Button clicked!");
+        Log.d("Booking Activity", "Button clicked!");
         val intent = Intent(this, BookingSecondActivity::class.java)
         startActivity(intent);
     }

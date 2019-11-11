@@ -1,17 +1,13 @@
 package com.example.driverfeature
 
-import android.content.ClipDescription
 import android.content.Intent
-import android.media.Image
 import android.os.Bundle
-import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.fragment.app.Fragment
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 class BottomDialogParkings: BottomSheetDialogFragment(){
@@ -26,13 +22,13 @@ class BottomDialogParkings: BottomSheetDialogFragment(){
         savedInstanceState: Bundle?
     ): View? {
 
-         var view = inflater.inflate(R.layout.bottom_sheet_parkings_layout,container,false)
-        val button=view.findViewById<Button>(R.id.btnBottomSheetDialog)
-        view.findViewById<TextView>(R.id.nameDialog).text=this.name
-        view.findViewById<TextView>(R.id.descriptionDialog).text=this.description
+         var view = inflater.inflate(R.layout.item_bookings,container,false)
+        val button=view.findViewById<Button>(R.id.descriptionButton)
+        view.findViewById<TextView>(R.id.titleTextView).text=this.name
+        view.findViewById<TextView>(R.id.descriptionTextView).text=this.description
         when(this.type){
-            GlobalConstants.COCHERA-> view.findViewById<ImageView>(R.id.imageDialog).setImageResource(R.drawable.cochera)
-            GlobalConstants.PARKING->view.findViewById<ImageView>(R.id.imageDialog).setImageResource(R.drawable.estacionamiento)
+            GlobalConstants.COCHERA-> view.findViewById<ImageView>(R.id.pictureImageView).setImageResource(R.drawable.cochera)
+            GlobalConstants.PARKING->view.findViewById<ImageView>(R.id.pictureImageView).setImageResource(R.drawable.estacionamiento)
         }
         button.setOnClickListener{
             val intent = Intent(context, DetailParkingActivity::class.java)

@@ -25,7 +25,13 @@ class LoginActivity : AppCompatActivity() {
         setContentView(R.layout.activity_login)
         val register=findViewById<TextView>(R.id.txtRegister)
         register.setOnClickListener{
-            startActivity(Intent(this,SignUpActivity::class.java))
+            intent = Intent(this,MainActivity::class.java)
+
+            intent.putExtra("name","helo")
+            intent.putExtra("password","hello")
+            intent.putExtra("email","hello")
+            startActivity(intent)
+            //finish()
         }
         val inputEmail=findViewById<TextView>(R.id.inputEmail)
         inputEmail.requestFocus()
@@ -59,10 +65,18 @@ class LoginActivity : AppCompatActivity() {
                 var list: ArrayList<Driver>?
                 SmartParkApi.getDrivers({
                     it?.forEach {
+                        val driver= it
                         if(it.email.toString()== username){
                             if(it.dni.toString() == password){
                                 val login = findViewById<Button>(R.id.login)
-                                login.setOnClickListener { startActivity(Intent(this,MainActivity::class.java)) }
+                                login.setOnClickListener {
+                                    val view=it
+                                    intent = Intent(this,MainActivity::class.java)
+
+                                    intent.putExtra("name",username)
+                                    intent.putExtra("password",password)
+                                    intent.putExtra("email",driver.email)
+                                    startActivity(intent) }
                             }
 
                         }
