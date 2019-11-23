@@ -1,13 +1,17 @@
 package com.example.myapplication.ui.Fragments
 
 import android.content.Context
+import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CheckBox
 import android.widget.ImageView
+import com.example.myapplication.Preferences
 
 import com.example.myapplication.R
 import kotlinx.android.synthetic.main.fragment_settings.*
@@ -26,7 +30,7 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class SettingsFragment : Fragment() {
-    var MapStyle = ""
+    var MAPStyle = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,61 +42,65 @@ class SettingsFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
+        loadSettings()
+        var selects: ArrayList<CheckBox> = ArrayList<CheckBox>()
+
         mapSatelital.setOnClickListener {
             changeSatelitalStyle()
         }
         mapNormal.setOnClickListener {
             changeNormalStyle()
         }
+
+        buttonSave.setOnClickListener {
+            for(item in selects){
+                if(!item.isChecked){
+                    if(!Preferences.removePreference(item.text.toString())){
+                        Log.d("remove", "no se pudo: "+ item.text.toString())
+                    }
+                }else{
+                    if(!Preferences.addPreference(item.text.toString())){
+                        Log.d("add", "no se pudo: "+ item.text.toString())
+                    }
+                }
+            }
+            saveSettings()
+        }
     }
 
     private fun changeNormalStyle(){
         mapNormal.scaleType = ImageView.ScaleType.FIT_CENTER
         mapSatelital.scaleType = ImageView.ScaleType.CENTER
-        MapStyle = "Normal"
+        MAPStyle = "Normal"
     }
 
     private fun changeSatelitalStyle(){
         mapSatelital.scaleType = ImageView.ScaleType.FIT_CENTER
         mapNormal.scaleType = ImageView.ScaleType.CENTER
-        MapStyle = "Satelital"
+        MAPStyle = "Satelital"
     }
 
+    private fun loadSettings(){
+        val preference: SharedPreferences? = activity?.getSharedPreferences("settings", Context.MODE_PRIVATE)
 
+        val mapStyle: String = preference?.getString("mapStyle","Normal") as String
 
-
-
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     *
-     *
-     * See the Android Training lesson [Communicating with Other Fragments]
-     * (http://developer.android.com/training/basics/fragments/communicating.html)
-     * for more information.
-     */
-
-
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment SettingsFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            SettingsFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+        MAPStyle = mapStyle
+        if(mapStyle == "Normal"){
+            changeNormalStyle()
+        }else if(mapStyle == "Satelital"){
+            changeSatelitalStyle()
+        }
     }
+
+    private fun saveSettings(){
+        val preference: SharedPreferences? = activity?.getSharedPreferences("settings", Context.MODE_PRIVATE)
+
+        val mapStyle: String = MAPStyle
+
+        val editor: SharedPreferences.Editor? = preference?.edit()
+        editor?.putString("mapStyle",mapStyle)
+        editor?.commit()
+    }
+
 }
