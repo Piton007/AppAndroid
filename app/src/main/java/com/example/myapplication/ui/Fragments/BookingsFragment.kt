@@ -22,7 +22,10 @@ import kotlinx.android.synthetic.main.fragment_bookings.*
 
 class BookingsFragment : Fragment() {
 
+
     lateinit var bookingsAdapter: BookingsAdapter
+
+
     var bookings: List<Booking> = ArrayList()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

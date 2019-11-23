@@ -1,8 +1,11 @@
 package com.example.myapplication
 
+import android.content.Context
+import android.content.res.Configuration
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.LinearLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -11,9 +14,14 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.*
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.myapplication.ui.Fragments.CarClass
+import com.example.myapplication.ui.adapters.AdaptadorC
 import com.google.android.material.navigation.NavigationView
 
-class MainActivity : AppCompatActivity() {
+class
+MainActivity : AppCompatActivity() {
 
     private var name: String?=null
     private  var email: String?=null
@@ -28,6 +36,10 @@ class MainActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_main)
 
+
+
+
+
         val args=intent
         if (args!=null){ this.name= args!!.getStringExtra("name")
             this.email=args!!.getStringExtra("email")
@@ -39,6 +51,7 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
         val drawerView: NavigationView=findViewById(R.id.navViewCore)
         val bottomBarView: BottomNavigationView = findViewById(R.id.nav_bottom_view)
+
 
         navController = findNavController(R.id.nav_host_fragment)
         drawerLayout=findViewById(R.id.drawerLayoutCore)
@@ -77,6 +90,14 @@ class MainActivity : AppCompatActivity() {
 
         NavigationUI.setupActionBarWithNavController(this, navController,drawerLayout)
 
+        //listar carros
+        val recyclerView:RecyclerView =findViewById(R.id.gone)
+        recyclerView.layoutManager=LinearLayoutManager(this, LinearLayout.VERTICAL,false)
+        val cars =ArrayList<CarClass>()
+        cars.add(CarClass("VH1451",1,R.drawable.playa1))
+        val adapter=AdaptadorC(cars)
+        recyclerView.adapter=adapter
+
 
     }
 
@@ -89,6 +110,8 @@ class MainActivity : AppCompatActivity() {
         val navController=this.findNavController(R.id.nav_host_fragment)
         return NavigationUI.navigateUp(navController,drawerLayout)
     }
+
+
 
 
 }
