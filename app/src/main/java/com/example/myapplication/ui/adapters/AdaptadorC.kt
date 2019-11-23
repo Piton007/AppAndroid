@@ -17,7 +17,7 @@ class AdaptadorC(var list: ArrayList<CarClass>):RecyclerView.Adapter<AdaptadorC.
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val v= LayoutInflater.from(parent?.context).inflate(com.example.myapplication.R.layout.fragment_car ,parent, false )
+        val v= LayoutInflater.from(parent?.context).inflate(R.layout.fragment_car ,parent, false )
         return ViewHolder(v)
     }
 
@@ -32,14 +32,14 @@ class AdaptadorC(var list: ArrayList<CarClass>):RecyclerView.Adapter<AdaptadorC.
 
     class ViewHolder(view:View): RecyclerView.ViewHolder(view){
         fun bindItems(data:CarClass) {
-            val title: TextView = itemView.findViewById(R.id.txtTitle)
-            val count: TextView = itemView.findViewById(R.id.txtCount)
-            val foto: ImageView = itemView.findViewById(R.id.foto)
+           // val title: TextView = itemView.findViewById(R.id.txtTitle)
+            //val count: TextView = itemView.findViewById(R.id.txtCount)
+            //val foto: ImageView = itemView.findViewById(R.id.foto)
 
-            title.text = data.name
-            count.text = data.numOfCars.toString()
+            //title.text = data.name
+            //count.text = data.numOfCars.toString()
 
-            Glide.with(itemView.context).load(data.foto).into(foto)
+            //Glide.with(itemView.context).load(data.foto).into(foto)
 
             itemView.setOnClickListener {
 

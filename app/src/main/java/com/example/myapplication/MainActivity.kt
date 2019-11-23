@@ -89,14 +89,14 @@ MainActivity : AppCompatActivity() {
         }
 
         NavigationUI.setupActionBarWithNavController(this, navController,drawerLayout)
-
+/*
         //listar carros
         val recyclerView:RecyclerView =findViewById(R.id.gone)
         recyclerView.layoutManager=LinearLayoutManager(this, LinearLayout.VERTICAL,false)
         val cars =ArrayList<CarClass>()
         cars.add(CarClass("VH1451",1,R.drawable.playa1))
         val adapter=AdaptadorC(cars)
-        recyclerView.adapter=adapter
+        recyclerView.adapter=adapter*/
 
 
     }
