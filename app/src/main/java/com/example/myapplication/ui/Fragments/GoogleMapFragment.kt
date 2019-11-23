@@ -1,6 +1,10 @@
 package com.example.myapplication.ui.Fragments
 
+import android.Manifest
+import android.content.Context
 import android.content.pm.PackageManager
+import android.location.Location
+import android.location.LocationManager
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -9,7 +13,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.app.ActivityCompat
 import androidx.lifecycle.ViewModelProviders
-import com.example.driverfeature.R
+import com.example.myapplication.R
 import com.example.networking.model.Parking
 import com.example.networking.networking.SmartParkApi
 import com.google.android.gms.maps.GoogleMap
@@ -19,14 +23,20 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.CameraUpdateFactory
 
 
 class GoogleMapFragment : Fragment(), OnMapReadyCallback
     {
 
     private lateinit var googleMapViewModel: GoogleMapModel
-    
 
+        private lateinit var locationManager: LocationManager
+        private var latitud =-4.0192200
+        private var longitud =-71.1028100
+        private val zoom = 8.0f
+
+        private var location: Location? = null
 
 
     private var googleMap: GoogleMap? = null
@@ -62,6 +72,38 @@ class GoogleMapFragment : Fragment(), OnMapReadyCallback
         addMarkersToMap()
         setUpPermissions()
 
+        locationManager = activity?.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+
+        if (ActivityCompat.checkSelfPermission(
+                activity!!.applicationContext,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) !== PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                activity!!.applicationContext, Manifest.permission.ACCESS_COARSE_LOCATION
+            ) !== PackageManager.PERMISSION_GRANTED
+        ) {
+            Log.d("SettingsFragment", "No hay permisos de geolocalizacion")
+            ActivityCompat.requestPermissions(
+                activity!!,
+                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION),
+                1
+            )
+        } else {
+
+            location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
+            if (location != null) {
+
+                latitud = location!!.latitude
+                longitud = location!!.longitude
+                Log.d("SettingsFragment", "Las coordenadas actuales son :: Lat:$latitud Lon:$longitud")
+            } else {
+                Log.e("SettingsFragment", "Location is null")
+                return
+            }
+
+        }
+
+
+        goToLocationInMap(latitud, longitud, zoom)
 
 
         googleMap!!.setOnMarkerClickListener {
@@ -80,6 +122,25 @@ class GoogleMapFragment : Fragment(), OnMapReadyCallback
         }
         googleMap!!.uiSettings.isZoomControlsEnabled = true
     }
+
+        private fun goToLocationInMap(lat: Double, lng: Double, zoom: Float) {
+
+            val latitudLongitud = LatLng(lat, lng)
+            drawUserInMap(latitudLongitud)
+            val update = CameraUpdateFactory.newLatLngZoom(latitudLongitud, zoom)
+            googleMap?.moveCamera(update)
+
+        }
+        private fun drawUserInMap(point: LatLng) {
+            // Creating an instance of MarkerOptions and define a icon
+
+            val markerOptions = MarkerOptions().icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)).title("me")
+            // Setting latitude and longitude for the marker
+            markerOptions.position(point)
+            // Adding marker on the Google Map
+            googleMap?.addMarker(markerOptions)
+        }
+
 
     fun setUpPermissions(){
         if (ActivityCompat.checkSelfPermission(requireContext(),android.Manifest.permission.ACCESS_FINE_LOCATION)!= PackageManager.PERMISSION_GRANTED){
